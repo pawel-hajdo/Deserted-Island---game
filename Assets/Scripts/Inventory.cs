@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour
     public AudioClip collectSound;
     public Texture2D[] hudCharge;
     public RawImage chargeHudGUI;
+    public Texture2D[] meterCharge;
+    public Renderer meter;
     public static int charge = 0;
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,7 @@ public class Inventory : MonoBehaviour
         AudioSource.PlayClipAtPoint(collectSound, transform.position);
         charge++;
         chargeHudGUI.texture = hudCharge[charge];
+        meter.material.mainTexture = meterCharge[charge];
     }
 
     void HUDon()
