@@ -35,14 +35,14 @@ public class TriggerZone : MonoBehaviour
             }
             else if (Inventory.charge > 0 && Inventory.charge < 4)
             {
-                textHints.SendMessage("ShowHint", "Drzwi ani drgn� � \n pewnie potrzebuj� wi�cej mocy...");
-                transform.Find("door").GetComponent<AudioSource>().PlayOneShot(lockedSound);
+                textHints.SendMessage("ShowHint", "Drzwi ani drgną … \n pewnie potrzebują więcej mocy...");
+                transform.FindChild("door").GetComponent<AudioSource>().PlayOneShot(lockedSound);
             }
             else
             {
                 transform.Find("door").GetComponent<AudioSource>().PlayOneShot(lockedSound);
                 col.gameObject.SendMessage("HUDon");
-                textHints.SendMessage("ShowHint", "Te drzwi wygl�daj� na zamkni�te, \n by� mo�e generator wymaga \n odpowiedniego zasilania...");
+                textHints.SendMessage("ShowHint", "Te drzwi wyglądają na zamknięte, \n być może generator wymaga \n odpowiedniego zasilania...");
             }
         }
     }
