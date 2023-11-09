@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TriggerZone : MonoBehaviour
 {
     public AudioClip lockedSound;
     public Light doorLight;
+    public Text textHints;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,10 +33,16 @@ public class TriggerZone : MonoBehaviour
                     doorLight.color = Color.green;
                 }
             }
+            else if (Inventory.charge > 0 && Inventory.charge < 4)
+            {
+                textHints.SendMessage("ShowHint", "Drzwi ani drgn� � \n pewnie potrzebuj� wi�cej mocy...");
+                transform.Find("door").GetComponent<AudioSource>().PlayOneShot(lockedSound);
+            }
             else
             {
                 transform.Find("door").GetComponent<AudioSource>().PlayOneShot(lockedSound);
                 col.gameObject.SendMessage("HUDon");
+                textHints.SendMessage("ShowHint", "Te drzwi wygl�daj� na zamkni�te, \n by� mo�e generator wymaga \n odpowiedniego zasilania...");
             }
         }
     }
