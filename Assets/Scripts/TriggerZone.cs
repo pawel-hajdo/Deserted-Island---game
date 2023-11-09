@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TriggerZone : MonoBehaviour
 {
+    public AudioClip lockedSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,11 @@ public class TriggerZone : MonoBehaviour
             if(Inventory.charge == 4)
             {
                 transform.Find("door").SendMessage("DoorCheck");
+            }
+            else
+            {
+                transform.Find("door").GetComponent<AudioSource>().PlayOneShot(lockedSound);
+                col.gameObject.SendMessage("HUDon");
             }
         }
     }
