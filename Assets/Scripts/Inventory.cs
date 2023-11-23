@@ -14,6 +14,8 @@ public class Inventory : MonoBehaviour
     // Zapa³ki
     bool haveMatches = false;
     public RawImage matchHudGUI;
+    public Text textHints;
+    bool fireIsLit = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,37 @@ public class Inventory : MonoBehaviour
         haveMatches = true;
         AudioSource.PlayClipAtPoint(collectSound, transform.position);
         matchHudGUI.enabled = true;
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit col)
+    {
+        if (col.gameObject.name == "campfire")
+        {
+            if (haveMatches)
+            {
+                LightFire(col.gameObject);
+            }
+            else if (!fireIsLit)
+            {
+                textHints.SendMessage("ShowHint", "Móg³bym rozpaliæ ognisko do wezwania pomocy. \n Tylko czym...");
+            }
+        }
+    }
+
+    void LightFire(GameObject campfire)
+    {
+        ParticleSystem[] fireEmitters;
+        fireEmitters = campfire.GetComponentsInChildren<ParticleSystem>();
+
+        foreach (ParticleSystem emitter in fireEmitters)
+        {
+            emitter.Play();
+        }
+
+        campfire.GetComponent<AudioSource>().Play();
+        matchHudGUI.enabled = false;
+        haveMatches = false;
+        fireIsLit = true;
     }
 }
 
