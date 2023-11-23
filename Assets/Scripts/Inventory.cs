@@ -11,6 +11,9 @@ public class Inventory : MonoBehaviour
     public Texture2D[] meterCharge;
     public Renderer meter;
     public static int charge = 0;
+    // Zapa³ki
+    bool haveMatches = false;
+    public RawImage matchHudGUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,13 @@ public class Inventory : MonoBehaviour
         {
             chargeHudGUI.enabled = true;
         }
+    }
+
+    void MatchPickup()
+    {
+        haveMatches = true;
+        AudioSource.PlayClipAtPoint(collectSound, transform.position);
+        matchHudGUI.enabled = true;
     }
 }
 
