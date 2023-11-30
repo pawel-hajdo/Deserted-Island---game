@@ -36,7 +36,7 @@ public class TriggerZone : MonoBehaviour
             else if (Inventory.charge > 0 && Inventory.charge < 4)
             {
                 textHints.SendMessage("ShowHint", "Drzwi ani drgną … \n pewnie potrzebują więcej mocy...");
-                transform.FindChild("door").GetComponent<AudioSource>().PlayOneShot(lockedSound);
+                transform.Find("door").GetComponent<AudioSource>().PlayOneShot(lockedSound);
             }
             else
             {
