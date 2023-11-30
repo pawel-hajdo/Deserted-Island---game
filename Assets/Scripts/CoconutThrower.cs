@@ -8,6 +8,7 @@ public class CoconutThrower : MonoBehaviour
     public AudioClip throwSound;
     public Rigidbody coconutPrefab;
     public float throwSpeed = 30.0f;
+    public static bool canThrow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class CoconutThrower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonUp("Fire1") && canThrow)
         {
             GetComponent<AudioSource>().PlayOneShot(throwSound);
             Rigidbody newCoconut = Instantiate(coconutPrefab, transform.position, transform.rotation) as Rigidbody;
