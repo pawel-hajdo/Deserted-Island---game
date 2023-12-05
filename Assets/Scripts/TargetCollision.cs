@@ -36,10 +36,12 @@ public class TargetCollision : MonoBehaviour
         GetComponent<AudioSource>().PlayOneShot(hitSound);
         targetRoot.Play("down");
         beenHit = true;
+        CoconutWin.targets++;
         yield return new WaitForSeconds(resetTime);
         GetComponent<AudioSource>().PlayOneShot(resetSound);
         targetRoot.Play("up");
         beenHit = false;
+        CoconutWin.targets--;
     }
 
 }
