@@ -13,6 +13,7 @@ IPointerEnterHandler, IPointerExitHandler
     public Sprite normalTexture;
     public Sprite rollOverTexture;
     public AudioClip beep;
+    public bool quitButton = false;
 
     // Update is called once per frame
     void Update()
@@ -32,8 +33,17 @@ IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GetComponent<AudioSource>().PlayOneShot(beep);
-        SceneManager.LoadScene(levelToLoad);
+
+        if (quitButton)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
+        }
+        else
+        {
+            GetComponent<AudioSource>().PlayOneShot(beep);
+            SceneManager.LoadScene(levelToLoad);
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
