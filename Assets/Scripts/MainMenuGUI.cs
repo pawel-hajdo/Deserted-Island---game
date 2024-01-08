@@ -12,6 +12,7 @@ public class MainMenuGUI : MonoBehaviour
     public Texture gameLogo;
     public bool adjustPosition;
     public bool adjustSize;
+    public Rect instructionsRect;
     Rect playBtnRect;
     Rect instructionsBtnRect;
     Rect quitBtnRect;
@@ -20,28 +21,46 @@ public class MainMenuGUI : MonoBehaviour
     float space = 20;
     float coefX = 1.0f;
     float coefY = 1.0f;
+    string menuPage = "main";
 
     void OnGUI()
     {
         GUI.skin = menuSkin;
-        GUI.BeginGroup(menuArea);
-        GUI.DrawTexture(new Rect(0, 0, 300 * coefX, 211 * coefY), gameLogo);
-        if (GUI.Button(playBtnRect, "Play"))
+        if (menuPage == "main")
         {
-            Debug.Log("Naciœniêto Play");
-            StartCoroutine("ButtonAction", "SampleScene");
+            GUI.BeginGroup(menuArea);
+            GUI.DrawTexture(new Rect(0, 0, 300 * coefX, 211 * coefY), gameLogo);
+            if (GUI.Button(playBtnRect, "Play"))
+            {
+                Debug.Log("Naciœniêto Play");
+                StartCoroutine("ButtonAction", "SampleScene");
+            }
+            if (GUI.Button(instructionsBtnRect, "Instructions"))
+            {
+                Debug.Log("Naciœniêto Instructions");
+                menuPage = "instructions";
+                GetComponent<AudioSource>().PlayOneShot(beep);
+            }
+            if (GUI.Button(quitBtnRect, "Quit"))
+            {
+                Debug.Log("Naciœniêto Quit");
+                StartCoroutine("ButtonAction", "quit");
+            }
+            GUI.EndGroup();
         }
-        if (GUI.Button(instructionsBtnRect, "Instructions"))
+        else if (menuPage == "instructions")
         {
-            Debug.Log("Naciœniêto Instructions");
-            GetComponent<AudioSource>().PlayOneShot(beep);
+            GUI.BeginGroup(menuArea);
+            GUI.Label(instructionsRect,
+            "Obudzi³eœ siê na tajemniczej wyspie..." + "ZnajdŸ sposób na zwrócenie na siebie uwagi, inaczej zostaniesz tu na zawsze!");
+            if (GUI.Button(quitBtnRect, "Back"))
+            {
+                GetComponent<AudioSource>().PlayOneShot(beep);
+                menuPage = "main";
+            }
+            GUI.EndGroup();
         }
-        if (GUI.Button(quitBtnRect, "Quit"))
-        {
-            Debug.Log("Naciœniêto Quit");
-            StartCoroutine("ButtonAction", "quit");
-        }
-        GUI.EndGroup();
+
     }
 
     IEnumerator ButtonAction(string levelName)
@@ -80,10 +99,9 @@ UnityEditor.EditorApplication.isPlaying = false;
             menuArea.y = (menuArea.y + h_2) * Screen.height / 768 - h_2;
         }
         playBtnRect = new Rect(50 * coefX, 250 * coefY, buttonWidth * coefX, buttonHeight * coefY);
-        instructionsBtnRect = new Rect(50 * coefX, (250 + buttonHeight + space) * coefY,
-        buttonWidth * coefX, buttonHeight * coefY);
-        quitBtnRect = new Rect(50 * coefX, (250 + (buttonHeight + space) * 2) * coefY, buttonWidth * coefX,
-        buttonHeight * coefY);
+        instructionsBtnRect = new Rect(50 * coefX, (250 + buttonHeight + space) * coefY, buttonWidth * coefX, buttonHeight * coefY);
+        quitBtnRect = new Rect(50 * coefX, (250 + (buttonHeight + space) * 2) * coefY, buttonWidth * coefX,buttonHeight * coefY);
+        instructionsRect = new Rect(0, 250 * coefY, 300 * coefX, buttonHeight * 3 * coefY);
     }
 
     // Update is called once per frame
