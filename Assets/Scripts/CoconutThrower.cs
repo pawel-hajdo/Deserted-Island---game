@@ -8,7 +8,7 @@ public class CoconutThrower : MonoBehaviour
     public AudioClip throwSound;
     public Rigidbody coconutPrefab;
     public float throwSpeed = 30.0f;
-    public static bool canThrow = false;
+    public static bool canThrow = true;
 
     // Start is called before the first frame update
     void Start()
