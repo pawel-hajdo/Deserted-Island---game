@@ -20,6 +20,14 @@ public class TriggerWolf : MonoBehaviour
         
     }
 
+    void OnCollisionEnter(Collision theObject)
+    {
+        if (theObject.gameObject.name == "coconut")
+        {
+            GetComponent<Animator>().SetTrigger("hit");
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == _player)
